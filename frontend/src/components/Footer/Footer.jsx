@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <div className='bg-blue-300 w-screen h-60 flex flex-col'>
         <div className='flex flex-col sm:flex-row justify-start items-center font-bold text-xl gap-12 pt-4'>
-            <div className='group mx-40'><span className='text-black group-hover:text-blue-800'>STORY</span><span className='text-blue-800 group-hover:text-black'>BOOK</span></div>
-            <div className='flex flex-col justify-center items-center gap-1 ml-20'>
+            <div className='group mx-10 md:mx-40'><span className='text-black group-hover:text-blue-800'>STORY</span><span className='text-blue-800 group-hover:text-black'>BOOK</span></div>
+            <div className='flex flex-col justify-center items-center gap-1 md:10 md:ml-20 lg:ml-30 xl:ml-40'>
               <div className='text-gray-900'>CONTACTS</div>
               <div className='text-gray-700 mt-4 font-medium text-lg'>storybook@gmail.com</div>
               <div className='text-gray-700 font-medium text-lg'>+123456789</div>
