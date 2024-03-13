@@ -9,12 +9,16 @@ import {
 } from 'react-router-dom'
 import App from './App.jsx'
 import Layout from './Layout.jsx'
+import Stories from './pages/Stories.jsx'
+import Story from './pages/Story.jsx'
 import './index.css'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route index element={<App />} />
+      <Route path='stories' element={<Stories />} />
+      <Route path='story/:id' element={<Story />} />
     </Route>
   )
 )

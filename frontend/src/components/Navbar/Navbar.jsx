@@ -16,8 +16,8 @@ const Navbar = ({
               <li><NavLink to='/stories' className={({ isActive }) => (isActive ? 'text-blue-800 hover:text-gray-900' : 'text-gray-900 hover:text-blue-800')}>Stories</NavLink></li>
             </ul>
             <div className='relative top-0 left-0 py-4 pl-6 w-60 h-8 my-2 font-semibold flex items-center text-sm rounded-lg '>
-              <input type="text" placeholder='Search' className='p-5 w-full h-full  absolute bg-gray-50 border text-gray-900  rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500' />
-              <img src="search.svg" alt="search" className='absolute right-0 h-6 w-8' />
+              <input type="text" placeholder='Search' className='p-5 w-full h-full  absolute bg-gray-50 border text-gray-900  rounded-lg border-gray-300  focus:ring-blue-500 focus:border-blue-500' />
+              <img src="/search.svg" alt="search" className='absolute right-0 h-6 w-8 outline-none border-none' />
             </div>
             <div className='py-2 px-6 bg-blue-600 w-24 my-2 text-white font-semibold rounded-md shadow-sm'>
               <Link to='/login'>Login</Link>
@@ -25,7 +25,7 @@ const Navbar = ({
           </div>
           <div className='flex lg:hidden px-8'>
             <button onClick={() => toggle()}>
-              {isOpen ? (<img src="close.svg" alt="close" className='h-6 w-6' />) : (<img src="menu.svg" alt="menu" className='h-6 w-6' />)}
+              {isOpen ? (<img src="/close.svg" alt="close" className='h-6 w-6' />) : (<img src="/menu.svg" alt="menu" className='h-6 w-6' />)}
             </button>
           </div>
         </div>

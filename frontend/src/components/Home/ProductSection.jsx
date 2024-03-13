@@ -9,10 +9,10 @@ const ProductSection = () => {
                 Trending Stories
             </div>
             <div className='flex flex-col md:flex-row justify-evenly items-center gap-4 w-[94vw] mx-auto overflow-x-hidden'>
-                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege" Category="Sci-fi" Rating="4.7"/>
-                <Card ImageSrc={"hero.jpg"} Title="The Story of the Dragon" Author="Justin Denney" Category="Fantasy" Rating="4.9"/>
-                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege" Category="Sci-fi" Rating="4.7"/>
-                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege" Category="Sci-fi" Rating="4.7"/>
+                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege" Category="Sci-fi" Rating="4.7" to="1"/>
+                <Card ImageSrc={"hero.jpg"} Title="The Story of the Dragon" Author="Justin Denney" Category="Fantasy" Rating="4.9" to="1"/>
+                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege" Category="Sci-fi" Rating="4.7" to="1"/>
+                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege" Category="Sci-fi" Rating="4.7" to="1"/>
             </div>
         </div>
         <div className='flex flex-col gap-4'>
@@ -20,10 +20,10 @@ const ProductSection = () => {
                 Latest Stories
             </div>
             <div className='flex flex-col md:flex-row justify-evenly items-center gap-4 w-[94vw] mx-auto overflow-x-hidden'>
-                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege"  Rating="4.7"/>
-                <Card ImageSrc={"hero.jpg"} Title="The Story of the Dragon" Author="Justin Denney" Rating="4.9"/>
-                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege"  Rating="4.7"/>
-                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege"  Rating="4.7"/>
+                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege"  Rating="4.7" to="1"/>
+                <Card ImageSrc={"hero.jpg"} Title="The Story of the Dragon" Author="Justin Denney" Rating="4.9" to="1"/>
+                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege"  Rating="4.7" to="1"/>
+                <Card ImageSrc={"hero.jpg"} Title="Lost in the Storm" Author="Kevin Fiege"  Rating="4.7" to="1"/>
             </div>
         </div>
         <div className='flex flex-col gap-4'>

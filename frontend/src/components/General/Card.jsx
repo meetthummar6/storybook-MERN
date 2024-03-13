@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Card = (
     {
@@ -6,6 +7,7 @@ const Card = (
         Title,
         Author,
         Rating,
+        to,
     }
 ) => {
     return (
@@ -24,9 +26,9 @@ const Card = (
                     <div className='text-gray-400'>
                         rating: <span className='text-blue-800'>{Rating}</span>
                     </div>
-                    <div className='text-white bg-blue-800 hover:bg-blue-900 py-1 px-3 rounded-md shadow'>
+                    <Link to={`/story/${to}`} className='text-white bg-blue-800 hover:bg-blue-900 py-1 px-3 rounded-md shadow'>
                         Read Now
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>
