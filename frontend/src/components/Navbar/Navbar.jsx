@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import Axios from 'axios'
 const Navbar = ({
   toggle, isOpen
 }) => {
 
+  const data=null
   return (
     <header className='shadow sticky z-50 top-0 w-screen'>
       <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2.5'>
@@ -20,7 +23,12 @@ const Navbar = ({
               <img src="/search.svg" alt="search" className='absolute right-0 h-6 w-8 outline-none border-none' />
             </div>
             <div className='py-2 px-6 bg-blue-600 w-24 my-2 text-white font-semibold rounded-md shadow-sm'>
-              <Link to='/login'>Login</Link>
+              {
+                data ? (<>
+                  <img src={data.avatar} alt="avatar" className='w-10 h-10 rounded-full ring-gray-500 ring-2' />
+                </>):
+                (<><Link to='/login'>Login</Link></>)
+              }
             </div>
           </div>
           <div className='flex lg:hidden px-8'>
