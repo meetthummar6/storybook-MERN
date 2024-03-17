@@ -18,8 +18,8 @@ const Login = () => {
         formState: { errors }
       } = useForm({ resolver: zodResolver(LoginSchema) });
 
-    const onSubmit = (data) => {
-        axios
+    const onSubmit = async(data) => {
+        await axios
             .post('/api/v1/users/login', data)
             .then((response) => {
                 toast.success('User logged in successfully');
@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <div className='w-[98vw] h-[98vh] flex flex-col justify-center items-center'>
     <div className='bg-blue-100 shadow-lg ring ring-gray-300 w-[30%] p-10'>
-        <h2 className='text-3xl font-bold mb-4 text-center'>Signup</h2>
+        <h2 className='text-3xl font-bold mb-4 text-center'>Login</h2>
         <div>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex flex-col gap-2'>
@@ -45,7 +45,7 @@ const Login = () => {
                     <input type="password" id='password' className='outline-none rounded-sm ring-0 focus:ring-2 ring-blue-900 p-1' {...register('password')}/>
                     {errors.password && <span>{errors.password.message}</span>}
                 </div>
-                <button type='submit' className='bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2 px-4 rounded'>Login</button>
+                <button type='submit' className='bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2 px-4 rounded mt-2'>Login</button>
             </form>
             <p className='text-center mt-4'>Don't have an account? <Link to='/signup' className='text-blue-800 hover:text-blue-900 underline font-medium'>signup</Link></p>
         </div>
