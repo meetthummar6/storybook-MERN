@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { useQuery } from 'react-query'
-import Axios from 'axios'
+import axios from 'axios'
+import { useContext } from 'react'
+import AuthContext from '../../context/AuthContext'
 const Navbar = ({
   toggle, isOpen
 }) => {
-
-  const data=null
+  const { user, login } = useContext(AuthContext)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get('/api/v1/users/current-user',
+        {},
+        { withcredentials: true })
+      login(res.data.data)
+    }
+    fetchUser()
+  }, [])
   return (
     <header className='shadow sticky z-50 top-0 w-screen'>
       <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2.5'>
@@ -22,23 +31,29 @@ const Navbar = ({
               <input type="text" placeholder='Search' className='p-5 w-full h-full  absolute bg-gray-50 border text-gray-900  rounded-lg border-gray-300  focus:ring-blue-500 focus:border-blue-500' />
               <img src="/search.svg" alt="search" className='absolute right-0 h-6 w-8 outline-none border-none' />
             </div>
-            <div className='py-2 px-6 bg-blue-600 w-24 my-2 text-white font-semibold rounded-md shadow-sm'>
+            <>
               {
-                data ? (<>
-                  <img src={data.avatar} alt="avatar" className='w-10 h-10 rounded-full ring-gray-500 ring-2' />
-                </>):
-                (<><Link to='/login'>Login</Link></>)
-              }
+                user ? (<>
+                  <Link to={`/user/${user._id}`} className='cursor-pointer'>
+                  <img src={user.avatar} alt="avatar" className='w-12 h-12 rounded-full ring-2 ring-blue-800' />
+                </Link>
+            </>) :
+            (
+            <div className='py-2 px-6 bg-blue-600 w-24 my-2 text-white font-semibold rounded-md shadow-sm'>
+              <Link to='/login'>Login</Link>
             </div>
-          </div>
-          <div className='flex lg:hidden px-8'>
-            <button onClick={() => toggle()}>
-              {isOpen ? (<img src="/close.svg" alt="close" className='h-6 w-6' />) : (<img src="/menu.svg" alt="menu" className='h-6 w-6' />)}
-            </button>
-          </div>
+            )
+              }
+          </>
         </div>
-      </nav>
-    </header>
+        <div className='flex lg:hidden px-8'>
+          <button onClick={() => toggle()}>
+            {isOpen ? (<img src="/close.svg" alt="close" className='h-6 w-6' />) : (<img src="/menu.svg" alt="menu" className='h-6 w-6' />)}
+          </button>
+        </div>
+      </div>
+    </nav>
+    </header >
   )
 }
 

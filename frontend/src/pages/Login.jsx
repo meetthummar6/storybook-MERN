@@ -4,7 +4,8 @@ import toast from 'react-hot-toast'
 import {useForm} from 'react-hook-form'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
-
+import { useContext } from 'react'
+import  AuthContext  from '../context/AuthContext'
 const LoginSchema = z.object({
     email: z.string().min(1, 'Email is required').email(),
     password: z.string().min(8, 'Password is required'),
@@ -12,6 +13,7 @@ const LoginSchema = z.object({
 
 const Login = () => {
     const navigate=useNavigate()
+    const {login}=useContext(AuthContext)
     const {
         register,
         handleSubmit,
@@ -22,6 +24,7 @@ const Login = () => {
         await axios
             .post('/api/v1/users/login', data)
             .then((response) => {
+                login(response.data.data.user);
                 toast.success('User logged in successfully');
                 navigate('/');
             })
