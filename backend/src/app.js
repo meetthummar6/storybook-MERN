@@ -18,8 +18,12 @@ app.use(cookieParser());
 
 //routes
 import userRoutes from './routes/user.routes.js'
+import storyRoutes from './routes/story.routes.js'
+import categoryRoutes from './routes/category.routes.js'
 
 //routes declare
 app.use('/api/v1/users',userRoutes)
+app.use('/api/v1/stories',storyRoutes)
+app.use('/api/v1/categories',categoryRoutes)
 
 export default app

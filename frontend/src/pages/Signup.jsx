@@ -44,18 +44,18 @@ const Signup = () => {
         };
 
 
-        const res = await axios
+        await axios
             .post('/api/v1/users/register', formData)
             .then((response) => {
                 toast.success('User created successfully');
                 navigate('/login');
             })
             .catch((error) => {
-                toast.error(error.response.data.message);
+                toast.error(error.response.data);
             });
     }
     return (
-        <div className='w-[98vw] h-[98vh] flex flex-col justify-center items-center'>
+        <div className='w-[98vw] h-[120vh] flex flex-col justify-center items-center'>
             <div className='bg-blue-100 shadow-lg ring ring-gray-300 w-[30%] p-10'>
                 <h2 className='text-3xl font-bold mb-4 text-center'>Signup</h2>
                 <div>

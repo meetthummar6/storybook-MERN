@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Link, NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { useContext } from 'react'
@@ -6,13 +7,25 @@ import AuthContext from '../../context/AuthContext'
 const Navbar = ({
   toggle, isOpen
 }) => {
+  const navigate=useNavigate()
   const { user, login } = useContext(AuthContext)
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get('/api/v1/users/current-user',
-        {},
-        { withcredentials: true })
-      login(res.data.data)
+      try {
+        const res = await axios.get('/api/v1/users/current-user',
+          {},
+          { withcredentials: true })
+          login(res.data.data)
+      } catch (error) {
+        try {
+          const res = await axios.post('/api/v1/users/refresh-token',
+            {},
+            { withcredentials: true })
+          login(res.data.data)
+        } catch (error) {
+          console.log(error.statusText)
+        }
+      }
     }
     fetchUser()
   }, [])

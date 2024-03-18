@@ -15,11 +15,13 @@ const storySchema = new Schema({
     },
     author: {
         type:Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
+        required: true
     },
     category: {
         type:Schema.Types.ObjectId,
-        ref:'Category'
+        ref:'Category',
+        required: true
     },
     isPublished: {
         type: Boolean,

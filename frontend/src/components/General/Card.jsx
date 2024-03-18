@@ -16,10 +16,10 @@ const Card = (
                 <img src={ImageSrc} alt={Title} className='object-cover aspect-video rounded-md' />
             </div>
             <div className='flex flex-col'>
-                <div className='text-xl font-semibold text-blue-800'>
+                <div className='text-xl font-semibold text-blue-800 text-wrap line-clamp-1'>
                     {Title}
                 </div>
-                <div className='text-lg font-medium'>
+                <div className='text-lg font-medium text-wrap line-clamp-1'>
                     {Author}
                 </div>
                 <div className='flex flex-col md:flex-row justify-between text-xl font-medium flex-nowrap'>
