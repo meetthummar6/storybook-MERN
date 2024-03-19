@@ -1,141 +1,15 @@
 import React from 'react'
 import Card from '../components/General/Card'
 import { useInfiniteQuery } from 'react-query'
-const fetchData = async ({ PageParam = 1 }) => {
-    const data = [
-        {
-            id: 1,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 2,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 3,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 4,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 5,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 6,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 7,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 8,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 9,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 10,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 11,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 12,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 13,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 14,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-        {
-            id: 15,
-            ImageSrc: "hero.jpg",
-            title: "Lost in the Storm",
-            author: "Kevin Fiege",
-            category: "Sci-fi",
-            rating: "4.7"
-        },
-        {
-            id: 16,
-            ImageSrc: "hero.jpg",
-            title: "The Story of the Dragon",
-            author: "Justin Denney",
-            category: "Fantasy",
-            rating: "4.9"
-        },
-    ]
-    return data.filter((story) => story.id >= (PageParam - 1) * 8 && story.id < PageParam * 8 + 1)
-}
+import axios from 'axios'
 
 const Stories = () => {
+    const fetchData = async (pageParam = 1) => {
+        console.log(pageParam)
+        const res = await axios.get(`/api/v1/stories/allstories?page=${pageParam}`)
+        return res.data
+
+    }
     const {
         isLoading,
         isError,
@@ -144,11 +18,16 @@ const Stories = () => {
         fetchNextPage,
         isFetching,
         isFetchingNextPage
-    } = useInfiniteQuery(['Stories'], fetchData, {
-        getNextPageParam: (lastPage, pages) => {
-            return lastPage[7].id / 8 + 1
+    } = useInfiniteQuery(['Stories'], ({ pageParam = 1 }) => fetchData(pageParam), {
+        getNextPageParam: (lastPage, allPages) => {
+            if (lastPage.data.length < 8) {
+                return undefined
+            }
+            return allPages.length + 1
+
         }
     })
+    console.log(data)
     if (isLoading) {
         return <h2>Loading...</h2>
     }
@@ -179,16 +58,21 @@ const Stories = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 '>
                 {
-                    data && data.pages.map((page) => {
-                        return page.map((story) => {
-                        return <Card key={story.id} ImageSrc={story.ImageSrc} Title={story.title} Author={story.author} Category={story.category} Rating={story.rating} to={story.id} />
+                    data?.pages?.map((page) => {
+                        return page?.data?.map((story) => {
+                            return <Card key={story?._id}
+                                ImageSrc={story?.coverImage}
+                                Title={story?.title}
+                                Author={story?.author.username}
+                                Category={story?.category.name}
+                                Rating={4.9}
+                                to={story?._id}
+                            />
                         })
                     })
                 }
             </div>
-            <div className='col-span-1 bg-gray-100 font-semibold text-lg mx-auto px-4 py-2 shadow ring-1 ring-gray-700'>
-                <button onClick={fetchNextPage}>Load More</button>
-            </div>
+            <div className='flex justify-center items-center bg-blue-50 font-medium text-lg border border-blue-800 rounded-md px-2 py-1 shadow mx-auto cursor-pointer hover:bg-blue-100' onClick={fetchNextPage}> {!isFetchingNextPage ? 'Load More' : 'Loading...'}</div>
             <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
         </div>
     )
