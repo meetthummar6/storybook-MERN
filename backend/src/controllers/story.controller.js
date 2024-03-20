@@ -7,12 +7,11 @@ import mongoose from 'mongoose'
 
 const getStories = asyncHandler(async (req, res) => {
     try {
-        console.log(req.query)
         const options = {
             page: req.query.page || 1,
-            limit:8
+            limit: 8
         }
-        const stories = await Story.find({isPublished: true}).populate('author', 'username').populate('category','name').sort({createdAt: -1}).skip(options.page * options.limit - options.limit).limit(options.limit)
+        const stories = await Story.find({ isPublished: true }).populate('author', 'username').populate('category', 'name').sort({ createdAt: -1 }).skip(options.page * options.limit - options.limit).limit(options.limit)
         return res.status(200).json(
             new ApiResponse(
                 200,
@@ -25,10 +24,27 @@ const getStories = asyncHandler(async (req, res) => {
     }
 })
 
+const getUserStories = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params
+        const stories = await Story.find({ author: id }).populate('author', 'username').populate('category', 'name')
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                stories,
+                "Stories fetched successfully"
+            )
+        )
+    }
+    catch (error) {
+        return res.status(error.statusCode || 500).json(error.message)
+    }
+})
+
 const getStory = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params
-        const story = await Story.findById(id)
+        const story = await Story.findById(id).populate('author', 'username').populate('category', 'name')
         if (!story) {
             throw new ApiError(404, "Story not found")
         }
@@ -73,7 +89,7 @@ const createStory = asyncHandler(async (req, res) => {
         const story = await Story.create({
             title,
             description,
-            coverImage:coverImage.url,
+            coverImage: coverImage.url,
             category,
             isPublished,
             author
@@ -87,7 +103,7 @@ const createStory = asyncHandler(async (req, res) => {
             )
         )
     } catch (error) {
-        return res.status(error.statusCode || 500).json( error.message )
+        return res.status(error.statusCode || 500).json(error.message)
     }
 })
 
@@ -129,4 +145,4 @@ const deleteStory = asyncHandler(async (req, res) => {
     }
 })
 
-export { getStories, getStory, createStory, updateStory, deleteStory }
+export { getStories, getStory, createStory, updateStory, deleteStory,getUserStories }

@@ -26,6 +26,11 @@ const CreateStrorySchema = z.object({
 const CreateStrory = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
+    if(!user)
+    {
+        navigate('/login')
+        return null
+    }
     const [categories, setCategories] = useState([])
     useEffect(() => {
         const fetchCategories = async () => {
@@ -36,7 +41,7 @@ const CreateStrory = () => {
             ).catch((error) => {
                 console.log(error)
             })
-            
+
         }
         fetchCategories()
     })
@@ -77,38 +82,36 @@ const CreateStrory = () => {
             <div className='text-3xl font-bold text-center text-blue-800'>
                 Create Story
             </div>
-            <form className='flex flex-col gap-y-8' onSubmit={handleSubmit(onSubmit)}>
+            <form className='flex flex-col  gap-y-8' onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex flex-col gap-2'>
                     <label htmlFor="title" className='ml-1 text-lg font-semibold'>Title:</label>
-                    <input type="text" id='title' className=' w-2/3 outline-none rounded-sm shadow-sm border border-neutral-400 ring-0 focus:ring-2 focus:ring-blue-900 p-1' {...register('title')} />
+                    <input type="text" id='title' className=' w-1/2 outline-none rounded-sm shadow-sm border border-neutral-400 ring-0 focus:ring-2 focus:ring-blue-900 p-1' {...register('title')} />
                     {errors.title && <p className='text-red-500'>{errors.title.message}</p>}
                 </div>
                 <div className='flex flex-col gap-2'>
                     <label htmlFor="description" className='ml-1 text-lg font-semibold'>Description:</label>
-                    <textarea type="text" id='description' className='w-3/4 outline-none rounded-sm shadow-sm ring-0 border border-neutral-400 focus:ring-2 focus:ring-blue-900 p-1' {...register('description')} />
+                    <textarea type="text" id='description' className='w-1/2 outline-none rounded-sm shadow-sm ring-0 border border-neutral-400 focus:ring-2 focus:ring-blue-900 p-1' {...register('description')} />
                     {errors.description && <p className='text-red-500'>{errors.description.message}</p>}
                 </div>
-                <div className='flex flex-row gap-8 justify-between items-center w-[88vw]'>
-                    <div className='flex gap-2'>
-                        <label htmlFor="coverImage" className='ml-1 text-lg font-semibold'>Cover Image:</label>
-                        <input type="file" id='coverImage' className='w-[25vw] outline-none  rounded-sm shadow-sm  ring-2 ring-blue-900  p-1' {...register('coverImage')} />
-                        {errors.coverImage && <p className='text-red-500'>{errors.coverImage.message}</p>}
-                    </div>
-                    <div className='flex gap-2'>
-                        <label htmlFor="category" className='ml-1 text-lg font-semibold'>Category:</label>
-                        <select name="category" id="category" defaultValue="select" className='w-[16vw] outline-none rounded-sm shadow-sm  ring-2 ring-blue-900  p-1' {...register('category')}>
-                            <option value="select">Select</option>
-                            {categories.map((category) => (
-                                <option key={category._id} value={category._id}>{category.name}</option>
-                            ))}
-                        </select>
-                        {errors.category && <p className='text-red-500'>{errors.category.message}</p>}
-                    </div>
-                    <div className='flex gap-2'>
-                        <label htmlFor="isPublished" className='ml-1 text-lg font-semibold'>Publish:</label>
-                        <input type="checkbox" id='isPublished' className='w-[3vw] outline-none rounded-sm shadow-sm p-1' {...register('isPublished')} />
-                        {errors.isPublished && <p className='text-red-500'>{errors.isPublished.message}</p>}
-                    </div>
+                <div className='flex gap-2'>
+                    <label htmlFor="coverImage" className='ml-1 text-lg font-semibold'>Cover Image:</label>
+                    <input type="file" id='coverImage' className='w-[25vw] outline-none  rounded-sm shadow-sm  ring-2 ring-blue-900  p-1' {...register('coverImage')} />
+                    {errors.coverImage && <p className='text-red-500'>{errors.coverImage.message}</p>}
+                </div>
+                <div className='flex gap-2'>
+                    <label htmlFor="category" className='ml-1 text-lg font-semibold'>Category:</label>
+                    <select name="category" id="category" defaultValue="select" className='w-[16vw] outline-none rounded-sm shadow-sm  ring-2 ring-blue-900  p-1' {...register('category')}>
+                        <option value="select">Select</option>
+                        {categories.map((category) => (
+                            <option key={category._id} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
+                    {errors.category && <p className='text-red-500'>{errors.category.message}</p>}
+                </div>
+                <div className='flex gap-2'>
+                    <label htmlFor="isPublished" className='ml-1 text-lg font-semibold'>Publish:</label>
+                    <input type="checkbox" id='isPublished' className='w-[3vw] outline-none rounded-sm shadow-sm p-1' {...register('isPublished')} />
+                    {errors.isPublished && <p className='text-red-500'>{errors.isPublished.message}</p>}
                 </div>
                 <button type='submit' className='bg-blue-800 text-white text-xl font-medium mx-auto w-[10vw] p-2 rounded-md mt-4'>Create</button>
             </form>

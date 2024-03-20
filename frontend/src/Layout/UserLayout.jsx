@@ -13,7 +13,7 @@ const UserLayout = () => {
     }
   },[user])
   return (
-    <div className="w-screen h-screen flex px-10 py-4 gap-10">
+    <div className="w-screen flex px-10 py-4 gap-10">
       <UserSidebar />
       <Outlet/>
     </div>

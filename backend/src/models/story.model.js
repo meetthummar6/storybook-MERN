@@ -23,6 +23,11 @@ const storySchema = new Schema({
         ref:'Category',
         required: true
     },
+    ratings: [{ type: Schema.Types.ObjectId, ref: 'Rating'}],
+    ratingCount: {
+        type: Number,
+        default: 0
+    },
     isPublished: {
         type: Boolean,
         default: false

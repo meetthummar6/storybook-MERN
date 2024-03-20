@@ -15,6 +15,7 @@ import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import User from './pages/User.jsx'
 import CreateStrory from './pages/CreateStrory.jsx'
+import UserStories from './pages/UserStories.jsx'
 import './index.css'
 
 const router = createBrowserRouter(
@@ -26,10 +27,11 @@ const router = createBrowserRouter(
       <Route path='stories' element={<Stories />} />
       <Route path='story/:id' element={<Story />} />
 
-      <Route path='user/:id' element={<UserLayout />}>
+      <Route path='user/:id/' element={<UserLayout />}>
         <Route index element={<User />} />
+        <Route path='create-story' element={<CreateStrory />}/>
+        <Route path='your-stories' element={<UserStories />} />
       </Route>
-      <Route path='/create-story' element={<CreateStrory />}/>
     </Route>
   )
 )

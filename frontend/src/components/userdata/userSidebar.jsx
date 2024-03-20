@@ -20,7 +20,10 @@ const UserSidebar = () => {
         <Link to={`/user/${user?._id}/profile`} className="hover:text-blue-800">Profile</Link>
       </div>
       <div className="text-gray-700 mt-4 font-medium text-lg border border-blue-900 px-2 py-1 w-full text-center">
-        <Link to={`/user/${user?._id}/stories`} className="hover:text-blue-800">Stories</Link>
+        <Link to={`/user/${user?._id}/your-stories`} className="hover:text-blue-800">Stories</Link>
+      </div>
+      <div className="text-gray-700 mt-4 font-medium text-lg border border-blue-900 px-2 py-1 w-full text-center">
+        <Link to={`/user/${user?._id}/create-story`} className="hover:text-blue-800">Create</Link>
       </div>
       <div className="text-gray-700 mt-4 font-medium text-lg border border-blue-900 px-2 py-1 w-full text-center">
         <Link to={`/user/${user?._id}/bookmarks`} className="hover:text-blue-800">Bookmarks</Link>

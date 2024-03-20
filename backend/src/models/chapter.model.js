@@ -19,21 +19,17 @@ const chapterSchema = new Schema({
     },
     option_a:{
         type:String,
-        required: true
     },
     option_a_link:{
         type:Schema.Types.ObjectId,
-        ref:'Chapter',
-        required:true
+        ref:'Chapter'
     },
     option_b:{
         type:String,
-        required: true
     },
     option_b_link:{
         type:Schema.Types.ObjectId,
-        ref:'Chapter',
-        required:true
+        ref:'Chapter'
     },
     option_c:{
         type:String,
