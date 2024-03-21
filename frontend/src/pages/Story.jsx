@@ -2,11 +2,13 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-
+import { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
 
 const Story = () => {
     const { id } = useParams()
-    const { data: story, isLoading, isError } = useQuery(['story'],()=> axios.get(`/api/v1/stories/story/${id}`).then((response) => response.data.data))
+    const { user } = useContext(AuthContext)
+    const { data: story, isLoading, isError } = useQuery(['story'], () => axios.get(`/api/v1/stories/story/${id}`).then((response) => response.data.data))
 
     if (isLoading) {
         return <h2>Loading...</h2>
@@ -26,7 +28,7 @@ const Story = () => {
                     {story.author.username}
                 </div>
                 <div className='text-lg font-medium'>
-                    Rating: <span className='text-blue-800'>{story.rating?.reduce((a, b) => a + b)/story.rating?.length || 0}</span>
+                    Rating: <span className='text-blue-800'>{story.rating?.reduce((a, b) => a + b) / story.rating?.length || 0}</span>
                 </div>
                 <div className='text-xl font-semibold bg-gray-300 py-2 px-4 rounded-md shadow mr-auto text-blue-800'>
                     {story.category.name}
@@ -40,6 +42,18 @@ const Story = () => {
                 <Link to={`/story/${story._id}`} className='text-white bg-blue-800 hover:bg-blue-900 py-2 px-4 font-semibold rounded-md mr-auto shadow'>
                     Read Now
                 </Link>
+                {
+                    user && user._id === story.author._id && (
+                        <>
+                            <Link to={`/story/${story._id}/edit`} className='text-white bg-blue-800 hover:bg-blue-900 mr-auto py-2 px-4 font-semibold rounded-md shadow'>
+                                Edit
+                            </Link>
+                            <Link to={`/story/${story._id}/addchapter`} className='text-white bg-blue-800 hover:bg-blue-900 mr-auto py-2 px-4 font-semibold rounded-md shadow'>
+                                Add Chapter
+                            </Link>
+                        </>
+                    )
+                }
             </div>
         </div>
     )
